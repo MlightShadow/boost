@@ -6,50 +6,35 @@ template.render("sql", { table: table }, (str_sql) => {
     console.log(str_sql);
 
     db.query(str_sql).then(res => {
-        let code = "";
+        let tablename = "";
+
         for (let r of res.recordset) {
-            datatype = "";
             tablename = r["tablename"];
-            columnname = r["columnname"];
-            descrpition = r["description"];
             switch (r["datatype"]) {
                 case "nvarchar":
                 case "varchar":
-                    datatype = "System.String";
+                    r.datatype = "System.String";
                     break;
                 case "decimal":
-                    datatype = "System.Decimal";
+                    r.datatype = "System.Decimal";
                     break;
                 case "date":
                 case "datetime":
-                    datatype = "System.DateTime";
+                    r.datatype = "System.DateTime";
                     break;
                 case "uniqueidentifier":
-                    datatype = "System.Guid";
+                    r.datatype = "System.Guid";
                     break;
                 default:
-                    datatype = "object";
+                    r.datatype = "object";
                     break;
             }
+            r.primarykey = r.primarykey === '0' ? 'false' : 'true';
 
-            if (code === "") {
-                code += `[SugarTable("${tablename}")]${constant.RCLF}[Serializable]${constant.RCLF}public class ${tablename}${constant.RCLF}{${constant.RCLF}`;
-            }
-
-            code += `/// <summary>${constant.RCLF}`;
-            code += `/// ${columnname} ${descrpition}${constant.RCLF}`;
-            code += `/// </summary>${constant.RCLF}`;
-
-            code += `[SugarColumn(ColumnName = "${columnname}" ${", IsPrimaryKey = " + (r["primarykey"] === "1" ? "true" : "false")
-                }, IsIgnore = false)]${constant.RCLF}`;
-            code += `public ${datatype} ${columnname} { get; set; }${constant.RCLF}`;
-            code += `${constant.RCLF}`;
         }
+        console.log(res.recordset);
 
-        code += `}${constant.RCLF}`;
-
-        console.log(code);
-
+        template.render("csharp_dto", { tablename: tablename, classname: tablename, record: res.recordset }, (res) => { console.log(res); });
     });
 
 });
