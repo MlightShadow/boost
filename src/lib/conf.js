@@ -8,6 +8,8 @@ function load_conf(file_path, code = "utf-8") {
     ));
 }
 
+let conf = load_conf("./../conf/base.yaml");
+
 module.exports = {
-    load_conf,
+    conf,
 };

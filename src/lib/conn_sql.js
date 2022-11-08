@@ -1,6 +1,5 @@
 var sql = require("mssql");
-var { load_conf } = require('./conf');
-let conf = load_conf("./../conf/base.yaml");
+var { conf } = require('./conf');
 var db = {};
 if (conf.db.type === 'mssql') {
     var config = {

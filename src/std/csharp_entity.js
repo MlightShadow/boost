@@ -1,6 +1,8 @@
-const constant = require("./../lib/constant");
 const template = require("./../lib/template");
 const db = require("../lib/conn_sql");
+const { write_file } = require("../lib/txt_reader");
+const { conf } = require("../lib/conf");
+
 let table = "FB_ZTB";
 template.render("sql", { table: table }, (str_sql) => {
     console.log(str_sql);
@@ -34,7 +36,10 @@ template.render("sql", { table: table }, (str_sql) => {
         }
         console.log(res.recordset);
 
-        template.render("csharp_dto", { tablename: tablename, classname: tablename, record: res.recordset }, (res) => { console.log(res); });
+        template.render("csharp_dto", { tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
+            console.log(res);
+            write_file(conf.output.csharp.dto + "/dto.cs", res);
+        });
     });
 
 });

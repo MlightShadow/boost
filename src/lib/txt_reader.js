@@ -7,6 +7,11 @@ function get_lines(file_path, encode = "utf-8") {
         .split(constant.RCLF);
 }
 
+function write_file(file_path, str) {
+    fs.writeFileSync(path.join(__dirname, file_path), str, { 'flag': 'a' });
+}
+
 module.exports = {
     get_lines,
+    write_file,
 };
