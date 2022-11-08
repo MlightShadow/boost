@@ -1,17 +1,12 @@
 const path = require("path");
-const Freemarker = require("freemarker.js");
+const Freemarker = require("freemarker");
 
-function render(template_path, data) {
-    let fm = new Freemarker({
-        viewRoot: path.join(__dirname, template_path),
-        options: {},
-    });
+function render(file_name, data, fn) {
+    let fm = new Freemarker({ root: path.join(__dirname, "./../ftl") });
 
-    fm.render("test.ftl", data, function (err, html, output) {
-        console.log(html);
+    fm.renderFile(file_name, data, function (err, output) {
         console.log(`err : ${err}`);
-        console.log(`output: ${output}`);
-        return output;
+        fn(output);
     });
 }
 

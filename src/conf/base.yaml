@@ -1,7 +1,8 @@
 db:
+  type: mssql
   mssql:
     username: sa
-    password: pwd
-    host: .
+    password: 
+    host: 192.168.1.11
     port: 1433
-    database: database
+    database: jssljs
