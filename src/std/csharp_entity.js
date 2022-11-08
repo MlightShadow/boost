@@ -1,5 +1,6 @@
 const txt_reader = require("./../lib/txt_reader");
 const constant = require("./../lib/constant");
+const db = require("../lib/conn_sql");
 
 /**
  * 
@@ -81,9 +82,8 @@ columns.forEach((i) => {
     code += `/// ${columnname} ${descrpition}${constant.RCLF}`;
     code += `/// </summary>${constant.RCLF}`;
 
-    code += `[SugarColumn(ColumnName = "${columnname}" ${
-        ", IsPrimaryKey = " + (arr[4] === "1" ? "true" : "false")
-    }, IsIgnore = false)]${constant.RCLF}`;
+    code += `[SugarColumn(ColumnName = "${columnname}" ${", IsPrimaryKey = " + (arr[4] === "1" ? "true" : "false")
+        }, IsIgnore = false)]${constant.RCLF}`;
     code += `public ${datatype} ${columnname} { get; set; }${constant.RCLF}`;
     code += `${constant.RCLF}`;
 });

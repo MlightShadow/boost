@@ -1,0 +1,7 @@
+db:
+  mssql:
+    username: sa
+    password: pwd
+    host: .
+    port: 1433
+    database: database
