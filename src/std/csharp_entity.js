@@ -38,7 +38,7 @@ template.render("sql", { table: table }, (str_sql) => {
 
         template.render("csharp_dto", { tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
             console.log(res);
-            write_file(conf.output.csharp.dto + "/dto.cs", res);
+            write_file(conf.output.csharp.dto + "/" + tablename + "_DTO.cs", res);
         });
     });
 
