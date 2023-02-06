@@ -12,7 +12,7 @@ namespace RoadFlow.Model
     {
         <#list record as r >
         /// <summary>
-        /// ${r.columnname} ${r.description}
+        /// ${r.columnname}${r.description}
         /// </summary>
         [SugarColumn(ColumnName = "${r.columnname}", IsPrimaryKey = ${r.primarykey}, IsIgnore = false)]
         public ${r.datatype} ${r.columnname} { get; set; }
