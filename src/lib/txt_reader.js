@@ -8,7 +8,7 @@ function get_lines(file_path, encode = "utf-8") {
 }
 
 function write_file(file_path, str) {
-    fs.writeFileSync(path.join(__dirname, file_path), str, { 'flag': 'a' });
+    fs.writeFileSync(path.join(__dirname, file_path), str, { 'flag': 'w' });
 }
 
 module.exports = {

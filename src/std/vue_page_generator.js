@@ -18,6 +18,7 @@ template.render("sql", { table: table }, (str_sql) => {
         for (let r of res.recordset) {
             tablename = r["tablename"];
             switch (r["datatype"]) {
+                case "datetime":
                 case "date":
                     r.datatype = "date";
                     break;
