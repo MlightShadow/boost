@@ -8,8 +8,4 @@ db:
     database: jssljs
 
 output:
-  csharp:
-    dto: ./../../output
-    data:
-    bussiness:
-    controller:
+    vue: ./../../output/vue
