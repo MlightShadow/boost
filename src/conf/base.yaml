@@ -8,4 +8,5 @@ db:
     database: jssljs
 
 output:
+    csharp: ./../../output/csharp
     vue: ./../../output/vue
