@@ -1,12 +1,12 @@
-const template = require("./../lib/template");
+const template = require("../lib/template");
 const db = require("../lib/conn_sql");
 const { write_file } = require("../lib/txt_reader");
 const { conf } = require("../lib/conf");
 
-let table = "t_ProjectBasicData";
-let api_root = "ProjectBasicData";
-let page_root = "/project_basic_data"
-let search_column = ["FKMMC", "FNumber"];
+let table = "ht_meeting";
+let api_root = "HT_Meeting";
+let page_root = "/work_order/ht_meeting"
+let search_column = ["contract_id", "createusername", "createdate"];
 let has_submit = false;
 let has_print = false;
 template.render("sql", { table: table }, (str_sql) => {
@@ -36,13 +36,13 @@ template.render("sql", { table: table }, (str_sql) => {
 
         template.render("vue_index", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
             console.log(res);
-            write_file(conf.output.csharp.dto + "/" + tablename + "_index.vue", res);
+            write_file(conf.output.vue + "/" + tablename + "_index.vue", res);
         });
 
         // form
         template.render("vue_form", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
             console.log(res);
-            write_file(conf.output.csharp.dto + "/" + tablename + "_form.vue", res);
+            write_file(conf.output.vue + "/" + tablename + "_form.vue", res);
         });
     });
 

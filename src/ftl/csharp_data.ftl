@@ -1,24 +1,22 @@
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using RoadFlow.Data;
-using RoadFlow.Model;
-using RoadFlow.Utility;
 
-namespace RoadFlow.Data
+namespace RoadFlow.Data.${data_namespace}
 {
-    public class ${modelname}Data : DbContext
+    /// <summary>
+    /// ${module_name_cn} 数据
+    /// </summary>
+    public class ${module_name} : DbContext
     {
 
-        public async Task<bool> save(${modelname}DTO dto)
+        /// <summary>
+        /// ${module_name_cn} 保存
+        /// </summary>
+        public async Task<bool> save(Model.${model_namespace}.${model_name} dto)
         {
-            if (String.IsNullOrEmpty(dto.ID))
+            if (String.IsNullOrEmpty(dto.id.ToString()))
             {
-                int rows = await db.InsertableAsync(dto).IgnoreColumns(new string[] { "ID" }).ExecuteCommand();
+                int rows = await db.Insertable(dto).IgnoreColumns(new string[] { "ID" }).ExecuteCommandAsync();
 
                 if (rows == 1)
                 {
@@ -31,7 +29,7 @@ namespace RoadFlow.Data
             }
             else
             {
-                int rows = db.Updateable(dto).IgnoreColumns(new string[] { "ID", "createdate", "createuserid", "createusername" }).ExecuteCommand();
+                int rows = await db.Updateable(dto).IgnoreColumns(new string[] { "ID", "createdate", "createuserid", "createusername" }).ExecuteCommandAsync();
 
                 if (rows == 1)
                 {
@@ -44,14 +42,20 @@ namespace RoadFlow.Data
             }
         }
 
-        public async Task<${modelname}DTO> get(string id)
+        /// <summary>
+        /// ${module_name_cn} 获取
+        /// </summary>
+        public async Task<Model.${model_namespace}.${model_name}> get(string id)
         {
-            return await db.QueryableAsync<${modelname}DTO>().Where("id = @id", new { id }).First();
+            return await db.Queryable<Model.${model_namespace}.${model_name}>().Where("id = @id", new { id }).FirstAsync();
         }
 
-        public async Task<bool> delete(string id, string orgid)
+        /// <summary>
+        /// ${module_name_cn} 删除
+        /// </summary>
+        public async Task<bool> delete(string id)
         {
-           Task<int> row = await db.Deleteable<${modelname}DTO>().Where("id = @id and xmid = @orgid", new { orgid, id }).ExecuteCommand();
+            int row = await db.Deleteable<Model.${model_namespace}.${model_name}>().Where("id = @id", new { id }).ExecuteCommandAsync();
 
             if (row == 1)
             {

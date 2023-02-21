@@ -7,8 +7,21 @@ function get_lines(file_path, encode = "utf-8") {
         .split(constant.RCLF);
 }
 
+function mkdirsSync(dirname) {
+    if (fs.existsSync(dirname)) {
+        return true;
+    } else {
+        if (mkdirsSync(path.dirname(dirname))) {
+            fs.mkdirSync(dirname);
+            return true;
+        }
+    }
+}
+
 function write_file(file_path, str) {
-    fs.writeFileSync(path.join(__dirname, file_path), str, { 'flag': 'w' });
+    let p = path.join(__dirname, file_path);
+    mkdirsSync(path.dirname(p));
+    fs.writeFileSync(p, str, { 'flag': 'w' });
 }
 
 module.exports = {
