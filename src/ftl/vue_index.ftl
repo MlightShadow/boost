@@ -188,7 +188,14 @@ export default {
                             </#if>
                             add() {
                                 that.layerTitle = "添加";
-                                that.layerUrl = `${page_root}/form?type=add&orgid=${r'${that.orgid}'}&parentid=${r'${that.parentid}'}&orgname=${r'${that.orgname}'}`;
+                                that.layerUrl =
+                                    "${page_root}/form" +
+                                    that.roadui.queryMaker({
+                                        orgid: that.orgid,
+                                        orgname: that.orgname,
+                                        parentid: that.parentid,
+                                        type: "add",
+                                    });
                                 that.layerShow = true;
                             },
                             edit() {
@@ -208,8 +215,15 @@ export default {
                                 }
 
                                 that.layerTitle = "编辑";
-
-                                that.layerUrl = `${page_root}/form?type=edit&orgid=${r'${that.orgid}'}&parentid=${r'${that.parentid}'}&orgname=${r'${that.orgname}'}id=${r'${that.selectKey}'}`;
+                                that.layerUrl =
+                                    "${page_root}/form" +
+                                    that.roadui.queryMaker({
+                                        orgid: that.orgid,
+                                        orgname: that.orgname,
+                                        parentid: that.parentid,
+                                        id: that.selectKey,
+                                        type: "edit",
+                                    });
 
                                 that.layerShow = true;
                             },
@@ -224,7 +238,15 @@ export default {
 
                                 that.layerTitle = "查看";
 
-                                that.layerUrl = `${page_root}/form?type=view&orgid=${r'${that.orgid}'}&parentid=${r'${that.parentid}'}&orgname=${r'${that.orgname}'}id=${r'${that.selectKey}'}`;
+                                that.layerUrl =
+                                    "${page_root}/form" +
+                                    that.roadui.queryMaker({
+                                        orgid: that.orgid,
+                                        orgname: that.orgname,
+                                        parentid: that.parentid,
+                                        id: that.selectKey,
+                                        type: "view",
+                                    });
                                 that.layerShow = true;
 
                             },

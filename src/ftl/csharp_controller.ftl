@@ -5,7 +5,7 @@ using RoadFlow.Utility;
 using System;
 using System.Threading.Tasks;
 
-namespace RoadFlow.${project_name}.Controllers
+namespace RoadFlow.${project_name}.Controllers${controller_namespace}
 {
     /// <summary>
     /// ${module_name_cn}
@@ -15,7 +15,7 @@ namespace RoadFlow.${project_name}.Controllers
     public class ${module_name}Controller : ControllerBase
     {
         private readonly ILogger<${module_name}Controller> _logger;
-        private readonly Business.${business_namespace}.${module_name} business = new Business.${business_namespace}.${module_name}();
+        private readonly Business${business_namespace}.${module_name} business = new Business${business_namespace}.${module_name}();
 
         public ${module_name}Controller(ILogger<${module_name}Controller> logger)
         {
@@ -43,7 +43,7 @@ namespace RoadFlow.${project_name}.Controllers
 
                 string sql_where = "xmid = @xmid and name like '%' + @searchstring + '%'";
 
-                Model.ResultModel.PageResult<Model.${model_namespace}.${model_name}> list = await business.PageListAsync<Model.${model_namespace}.${model_name}>(number, size, sql_where, new { xmid, searchstring }, order);
+                Model.ResultModel.PageResult<Model${model_namespace}.${model_name}> list = await business.PageListAsync<Model${model_namespace}.${model_name}>(number, size, sql_where, new { xmid, searchstring }, order);
 
                 return RoadFlowCommon.Tools.GetReturnJsonString(true, msg: "查询完成", jObject: JObject.FromObject(list));
             }
@@ -98,7 +98,7 @@ namespace RoadFlow.${project_name}.Controllers
         /// ${module_name_cn}保存
         /// </summary>
         [HttpPost("save")]
-        public async Task<string> save(Model.${model_namespace}.${model_name} dto)
+        public async Task<string> save(Model${model_namespace}.${model_name} dto)
         {
             try
             {

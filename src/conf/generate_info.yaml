@@ -1,0 +1,22 @@
+vue:
+    table_name: material
+    module_name: base_material
+    folder_name:
+    api_root: "Base_Material"
+    search_column: ["FName", "FNumber"]
+
+csharp:
+    common:
+        project_name: MaterialCost
+        module_name: Base_Material
+        module_name_cn: 物料
+    entity:
+        namespace: Base_Material
+        table_name: material
+        class_name: Material
+    business:
+        namespace: Base_Material
+    data:
+        namespace: Base_Material
+    controller:
+        namespace: Base_Material

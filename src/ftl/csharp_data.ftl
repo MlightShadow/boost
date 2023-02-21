@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace RoadFlow.Data.${data_namespace}
+namespace RoadFlow.Data${data_namespace}
 {
     /// <summary>
     /// ${module_name_cn} 数据
@@ -12,7 +12,7 @@ namespace RoadFlow.Data.${data_namespace}
         /// <summary>
         /// ${module_name_cn} 保存
         /// </summary>
-        public async Task<bool> save(Model.${model_namespace}.${model_name} dto)
+        public async Task<bool> save(Model${model_namespace}.${model_name} dto)
         {
             if (String.IsNullOrEmpty(dto.id.ToString()))
             {
@@ -45,9 +45,9 @@ namespace RoadFlow.Data.${data_namespace}
         /// <summary>
         /// ${module_name_cn} 获取
         /// </summary>
-        public async Task<Model.${model_namespace}.${model_name}> get(string id)
+        public async Task<Model${model_namespace}.${model_name}> get(string id)
         {
-            return await db.Queryable<Model.${model_namespace}.${model_name}>().Where("id = @id", new { id }).FirstAsync();
+            return await db.Queryable<Model${model_namespace}.${model_name}>().Where("id = @id", new { id }).FirstAsync();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace RoadFlow.Data.${data_namespace}
         /// </summary>
         public async Task<bool> delete(string id)
         {
-            int row = await db.Deleteable<Model.${model_namespace}.${model_name}>().Where("id = @id", new { id }).ExecuteCommandAsync();
+            int row = await db.Deleteable<Model${model_namespace}.${model_name}>().Where("id = @id", new { id }).ExecuteCommandAsync();
 
             if (row == 1)
             {

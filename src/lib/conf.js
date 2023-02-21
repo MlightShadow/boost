@@ -9,7 +9,9 @@ function load_conf(file_path, code = "utf-8") {
 }
 
 let conf = load_conf("./../conf/base.yaml");
+let generate_info = load_conf("./../conf/generate_info.yaml");
 
 module.exports = {
     conf,
+    generate_info
 };

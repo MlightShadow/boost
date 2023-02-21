@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SqlSugar;
 
-namespace RoadFlow.Model
+namespace RoadFlow.Model${entity_namespace}
 {
     [SugarTable("${tablename}")]
     [Serializable]
