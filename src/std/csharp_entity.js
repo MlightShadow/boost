@@ -31,7 +31,7 @@ function generate_entity() {
                         r.datatype = "System.DateTime";
                         break;
                     case "uniqueidentifier":
-                        r.datatype = "System.Guid";
+                        r.datatype = "System.Guid?";
                         break;
                     default:
                         r.datatype = "object";

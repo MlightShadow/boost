@@ -49,8 +49,8 @@ namespace RoadFlow.${project_name}.Controllers${controller_namespace}
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                return RoadFlowCommon.Tools.GetReturnJsonString(false, msg: ex.Message, jObject: JObject.FromObject(ex.StackTrace));
+                Console.WriteLine(ex);
+                return RoadFlowCommon.Tools.GetReturnJsonString(false, msg: ex.Message, jObject: JObject.FromObject(ex));
             }
         }
 
@@ -69,8 +69,8 @@ namespace RoadFlow.${project_name}.Controllers${controller_namespace}
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                return RoadFlowCommon.Tools.GetReturnJsonString(false, msg: ex.Message, jObject: JObject.FromObject(ex.StackTrace));
+                Console.WriteLine(ex);
+                return RoadFlowCommon.Tools.GetReturnJsonString(false, msg: ex.Message, jObject: JObject.FromObject(ex));
             }
         }
 
@@ -89,8 +89,8 @@ namespace RoadFlow.${project_name}.Controllers${controller_namespace}
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                return RoadFlowCommon.Tools.GetReturnJsonString(false, msg: ex.Message, jObject: JObject.FromObject(ex.StackTrace));
+                Console.WriteLine(ex);
+                return RoadFlowCommon.Tools.GetReturnJsonString(false, msg: ex.Message, jObject: JObject.FromObject(ex));
             }
         }
 
@@ -107,8 +107,8 @@ namespace RoadFlow.${project_name}.Controllers${controller_namespace}
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                return RoadFlowCommon.Tools.GetReturnJsonString(false, msg: ex.Message, jObject: JObject.FromObject(ex.StackTrace));
+                Console.WriteLine(ex);
+                return RoadFlowCommon.Tools.GetReturnJsonString(false, msg: ex.Message, jObject: JObject.FromObject(ex));
             }
         }
 

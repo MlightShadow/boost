@@ -114,8 +114,8 @@ export default {
                         this.qs.stringify({ id: this.id })
                     )
                     .then((data) => {
-                        this.form = data.main;
-                        this.tableData.push(...data.list);
+                        this.form = data.data;
+                        //this.tableData.push(...data.list);
                     });
             }
         },
@@ -132,10 +132,7 @@ export default {
                     console.log(this.form);
 
                     this.ajax
-                        .post(
-                            "/MaterialCost/api/${api_root}/save",
-                            this.qs.stringify(this.form)
-                        )
+                        .post("/MaterialCost/api/${api_root}/save", this.form)
                         .then((data) => {
                             alert(data.msg);
                             if (data.success) {

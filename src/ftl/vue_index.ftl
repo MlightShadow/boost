@@ -10,7 +10,7 @@
                 <#if r.columnname == sc>
                 <#if r.datatype == "date">
                 <el-col :span="8">
-                    <span>${r.columnname}：</span>
+                    <span>${r.description}：</span>
                     <el-date-picker
                         v-model="querydata.${r.columnname}"
                         type="date"
@@ -21,7 +21,7 @@
                 </el-col>
                 <#else>
                 <el-col :span="8">
-                    ${r.columnname}：<roadui-text
+                    ${r.description}：<roadui-text
                         style="width:200px;"
                         v-model="querydata.${r.columnname}"
                     ></roadui-text>
@@ -128,7 +128,7 @@ export default {
                 {
                     prop: "${r.columnname}",
                     label: "${r.description}",
-                    width: "150",
+                    width: "auto",
                     type: "${r.datatype}",
                     sortable: true,
                 },
@@ -340,20 +340,17 @@ export default {
             this.querydata.number = this.number;
             this.querydata.order = this.order;
             this.loading = true;
-            this.querydata.is_xmbid = this.parentid;
-            this.querydata.is_xmid = this.orgid;
             //列表
-            this.loading = true;
             this.ajax
-                .post(
+                .get(
                     "/MaterialCost/api/${api_root}/list",
                     this.qs.stringify(this.querydata)
                 )
                 .then((data) => {
                     this.loading = false;
                     this.table = [];
-                    this.table.push(...data.rows);
-                    this.totalpage = data.total;
+                    this.table.push(...data.data.rows);
+                    this.totalpage = data.data.total;
                     this.loading = false;
                     this.buttonDisabled = false;
                 })
@@ -363,6 +360,7 @@ export default {
         },
         close() {
             this.layerShow = false;
+            this.loadData();
         },
 
         // 单选
