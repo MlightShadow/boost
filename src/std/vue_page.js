@@ -5,7 +5,6 @@ const { write_file } = require("../lib/txt_reader");
 function generate_vue(generate_conf) {
     // custom_columns
     let db_conf = generate_conf.db_conf;
-    let module_name = generate_conf.module_name;
     let db_table = generate_conf.db_table;
     let api_root = generate_conf.api_root;
     let page_root = generate_conf.page_root;
@@ -48,6 +47,12 @@ function generate_vue(generate_conf) {
             template.render("vue_form", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
                 console.log(res);
                 write_file(VUE_OUTPUT + "form.vue", res);
+            });
+
+            // tree
+            template.render("vue_tree", {}, (res) => {
+                console.log(res);
+                write_file(VUE_OUTPUT + "tree.vue", res);
             });
         });
     });
