@@ -1,52 +1,58 @@
 const template = require("../lib/template");
-const db = require("../lib/conn_sql");
+const { get_connect } = require("../lib/conn_sql");
 const { write_file } = require("../lib/txt_reader");
-const { conf, generate_info } = require("../lib/conf");
 
-let table = generate_info.vue.table_name;
-let api_root = generate_info.vue.api_root;
-let page_root = `${generate_info.vue.folder_name == null ? "" : "/" + generate_info.vue.folder_name}/${generate_info.vue.module_name}`;
-let search_column = generate_info.vue.search_column;
-let has_submit = false;
-let has_print = false;
+function generate_vue(generate_conf) {
+    // custom_columns
+    let db_conf = generate_conf.db_conf;
+    let module_name = generate_conf.module_name;
+    let db_table = generate_conf.db_table;
+    let api_root = generate_conf.api_root;
+    let page_root = generate_conf.page_root;
+    let search_column = generate_conf.search_column;
+    let has_submit = generate_conf.has_submit;
+    let has_print = generate_conf.has_print;
 
-template.render("sql", { table: table }, (str_sql) => {
-    console.log(str_sql);
+    template.render("sql", { table: db_table }, (str_sql) => {
+        console.log(str_sql);
 
-    db.query(str_sql).then(res => {
-        let tablename = "";
+        get_connect(db_conf).query(str_sql).then(res => {
+            let tablename = "";
 
-        for (let r of res.recordset) {
-            tablename = r["tablename"];
-            switch (r["datatype"]) {
-                case "datetime":
-                case "date":
-                    r.datatype = "date";
-                    break;
-                default:
-                    r.datatype = "input";
-                    break;
+            for (let r of res.recordset) {
+                tablename = r["tablename"];
+                switch (r["datatype"]) {
+                    case "datetime":
+                    case "date":
+                        r.datatype = "date";
+                        break;
+                    default:
+                        r.datatype = "input";
+                        break;
+                }
+                r.primarykey = r.primarykey === '0' ? 'false' : 'true';
+
+                r.description = r.description ?? r.columnname;
             }
-            r.primarykey = r.primarykey === '0' ? 'false' : 'true';
+            console.log(res.recordset);
 
-            r.description = r.description ?? r.columnname;
-        }
-        console.log(res.recordset);
+            //index
+            const VUE_OUTPUT = db_conf.output.vue + "/" + page_root + "/";
 
-        //index
-        const VUE_OUTPUT = conf.output.vue + "/" + generate_info.vue.module_name + "/";
+            template.render("vue_index", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
+                console.log(res);
+                write_file(VUE_OUTPUT + "index.vue", res);
+            });
 
-        template.render("vue_index", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
-            console.log(res);
-            write_file(VUE_OUTPUT + "index.vue", res);
-        });
-
-        // form
-        template.render("vue_form", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
-            console.log(res);
-            write_file(VUE_OUTPUT + "form.vue", res);
+            // form
+            template.render("vue_form", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
+                console.log(res);
+                write_file(VUE_OUTPUT + "form.vue", res);
+            });
         });
     });
+}
 
-});
-
+module.exports = {
+    generate_vue,
+}

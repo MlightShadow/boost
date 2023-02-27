@@ -1,22 +1,22 @@
 vue:
-    table_name: material
-    module_name: base_material
-    folder_name:
-    api_root: "Base_Material"
-    search_column: ["FName", "FNumber"]
+    table_name: ht_meeting
+    module_name: work_order
+    folder_name: ht_meeting
+    api_root: WorkOrder
+    search_column: ["project_id", "createusername", "createdate"]
 
 csharp:
     common:
         project_name: MaterialCost
-        module_name: Base_Material
-        module_name_cn: 物料
+        module_name: HT_Meeting
+        module_name_cn: 点工单
     entity:
-        namespace: Base_Material
-        table_name: material
-        class_name: Material
+        namespace: WorkOrder
+        table_name: ht_meeting
+        class_name: HT_Meeting
     business:
-        namespace: Base_Material
+        namespace: WorkOrder
     data:
-        namespace: Base_Material
+        namespace: WorkOrder
     controller:
-        namespace: Base_Material
+        namespace: WorkOrder

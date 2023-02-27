@@ -1,19 +1,20 @@
 const template = require("./../lib/template");
-const db = require("../lib/conn_sql");
+const { get_connect } = require("../lib/conn_sql");
 const { write_file } = require("../lib/txt_reader");
-const { conf, generate_info } = require("../lib/conf");
 
-let entity_namespace = generate_info.csharp.entity.namespace;
-const ENTITY_OUTPUT = conf.output.csharp + "/model/" + entity_namespace + "/";
+function generate_entity(generate_conf) {
 
-let table = generate_info.csharp.entity.table_name;
-let classname = generate_info.csharp.entity.class_name;
-entity_namespace = "." + entity_namespace;
-function generate_entity() {
-    template.render("sql", { table: table }, (str_sql) => {
+    let db_conf = generate_conf.db_conf;
+    let entity_namespace = generate_conf.entity_namespace;
+    const ENTITY_OUTPUT = generate_conf.ENTITY_OUTPUT;
+    let db_table = generate_conf.db_table;
+    let class_name = generate_conf.class_name;
+    entity_namespace = "." + entity_namespace;
+
+    template.render("sql", { table: db_table }, (str_sql) => {
         console.log(str_sql);
 
-        db.query(str_sql).then(res => {
+        get_connect(db_conf).query(str_sql).then(res => {
             let tablename = "";
 
             for (let r of res.recordset) {
@@ -42,9 +43,9 @@ function generate_entity() {
             }
             console.log(res.recordset);
 
-            template.render("csharp_dto", { tablename, classname, entity_namespace, record: res.recordset }, (res) => {
+            template.render("csharp_dto", { tablename, class_name, entity_namespace, record: res.recordset }, (res) => {
                 console.log(res);
-                write_file(ENTITY_OUTPUT + tablename + ".cs", res);
+                write_file(ENTITY_OUTPUT + class_name + ".cs", res);
             });
         });
     });

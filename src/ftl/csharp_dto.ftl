@@ -8,7 +8,7 @@ namespace RoadFlow.Model${entity_namespace}
 {
     [SugarTable("${tablename}")]
     [Serializable]
-    public class ${classname}
+    public class ${class_name}
     {
         <#list record as r >
         /// <summary>
