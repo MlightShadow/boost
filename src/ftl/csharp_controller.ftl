@@ -32,18 +32,18 @@ namespace RoadFlow.${project_name}.Controllers${controller_namespace}
             {
                 int number = Request.Querys("number").ToInt();
                 int size = Request.Querys("size").ToInt();
-                string xmid = Request.Querys("xmid");
+                string project_id = Request.Querys("project_id");
                 string order = Request.Querys("order");
-                string searchstring = Request.Querys("searchstring");
+                string createusername = Request.Querys("createusername");
 
                 if (order.IsNullOrWhiteSpace())
                 {
                     order = "createdate desc";
                 }
 
-                string sql_where = "xmid = @xmid and name like '%' + @searchstring + '%'";
+                string sql_where = "(project_id = @project_id or @project_id = '') and createusername like '%' + @createusername + '%'";
 
-                Model.ResultModel.PageResult<Model${model_namespace}.${model_name}> list = await business.PageListAsync<Model${model_namespace}.${model_name}>(number, size, sql_where, new { xmid, searchstring }, order);
+                Model.ResultModel.PageResult<Model${model_namespace}.${model_name}> list = await business.PageListAsync<Model${model_namespace}.${model_name}>(number, size, sql_where, new { project_id, createusername }, order);
 
                 return RoadFlowCommon.Tools.GetReturnJsonString(true, msg: "查询完成", jObject: JObject.FromObject(list));
             }

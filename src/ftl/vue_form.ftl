@@ -38,8 +38,8 @@
                         <el-date-picker
                             v-model="form.${r.columnname}"
                             type="date"
-                            format="yyyyMMdd"
-                            value-format="yyyyMMdd"
+                            format="yyyy-MM-dd"
+                            value-format="yyyy-MM-dd"
                             placeholder="选择日期"
                         >
                         </el-date-picker>
@@ -109,11 +109,15 @@ export default {
         load() {
             if (this.id) {
                 this.ajax
-                    .post(
-                        "/MaterialCost/api/${api_root}/get",
-                        this.qs.stringify({ id: this.id })
+                    .get(
+                        "/MaterialCost/api/${api_root}/get" +
+                        this.roadui.queryMaker({id: this.id})
                     )
                     .then((data) => {
+                        this.$message({
+                                message: data.msg,
+                                type: data.success ? "success" : "warning",
+                            });
                         this.form = data.data;
                         //this.tableData.push(...data.list);
                     });
@@ -134,7 +138,10 @@ export default {
                     this.ajax
                         .post("/MaterialCost/api/${api_root}/save", this.form)
                         .then((data) => {
-                            alert(data.msg);
+                            this.$message({
+                                message: data.msg,
+                                type: data.success ? "success" : "warning",
+                            });
                             if (data.success) {
                                 this.$parent.$emit("remove");
                             }

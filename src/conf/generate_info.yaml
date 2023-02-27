@@ -2,7 +2,7 @@ vue:
     table_name: ht_meeting
     module_name: work_order
     folder_name: ht_meeting
-    api_root: WorkOrder
+    api_root: HT_Meeting
     search_column: ["project_id", "createusername", "createdate"]
 
 csharp:

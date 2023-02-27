@@ -277,7 +277,10 @@ export default {
                                         })
                                     )
                                     .then((data) => {
-                                        alert(data.msg);
+                                        this.$message({
+                                            message: data.msg,
+                                            type: data.success ? "success" : "warning",
+                                        });
                                         if (data.success) {
                                             that.loadData();
                                         }
@@ -343,12 +346,16 @@ export default {
             //列表
             this.ajax
                 .get(
-                    "/MaterialCost/api/${api_root}/list",
-                    this.qs.stringify(this.querydata)
+                    "/MaterialCost/api/${api_root}/list" +
+                        this.roadui.queryMaker(this.querydata)
                 )
                 .then((data) => {
                     this.loading = false;
                     this.table = [];
+                    this.$message({
+                                message: data.msg,
+                                type: data.success ? "success" : "warning",
+                            });
                     this.table.push(...data.data.rows);
                     this.totalpage = data.data.total;
                     this.loading = false;
@@ -366,7 +373,7 @@ export default {
         // 单选
         handleSelectChange(val) {
             this.selectRow = val;
-            this.selectKey = val.ID;
+            this.selectKey = val.id;
         },
         // 排序
         handleSortChange(val) {

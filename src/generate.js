@@ -43,7 +43,7 @@ let vue_conf = {
     api_root: generate_info.vue.api_root,
     page_root: `${(generate_info.vue.folder_name == null ? "" : "/") + generate_info.vue.module_name}/${generate_info.vue.folder_name}`,
     search_column: generate_info.vue.search_column,
-    has_submit: false,
+    has_submit: true,
     has_print: false,
 }
 

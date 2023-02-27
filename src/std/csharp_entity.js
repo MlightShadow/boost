@@ -27,6 +27,9 @@ function generate_entity(generate_conf) {
                     case "decimal":
                         r.datatype = "System.Decimal";
                         break;
+                    case "int":
+                        r.datatype = "System.Int32";
+                        break;
                     case "date":
                     case "datetime":
                         r.datatype = "System.DateTime";
