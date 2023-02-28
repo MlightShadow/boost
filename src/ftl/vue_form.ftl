@@ -22,6 +22,7 @@
         <el-form ref="mainForm" :model="form" label-width="170px">
             <el-row>
                 <#list record as r >
+                <#if r.columnname != "id" && r.columnname != "status">
                 <el-col :span="8">
                     <el-form-item
                         label="${r.description}："
@@ -43,6 +44,11 @@
                             placeholder="选择日期"
                         >
                         </el-date-picker>
+                        <#elseif r.columnname == "uploadfile" || r.columnname == "uploadfile" || r.columnname == "file_upload" || r.columnname == "fileupload" || r.columnname == "file" || r.columnname == "attach">
+                        <roadui-files
+                            style="width:345px;"
+                            v-model="form.${r.columnname}"
+                        ></roadui-files>
                         <#else>
                         <el-input
                             v-model="form.${r.columnname}"
@@ -51,6 +57,7 @@
                         </#if>
                     </el-form-item>
                 </el-col>
+                </#if>
                 </#list>
             </el-row>
         </el-form>

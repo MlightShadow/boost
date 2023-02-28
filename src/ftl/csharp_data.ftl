@@ -17,6 +17,7 @@ namespace RoadFlow.Data${data_namespace}
             if (String.IsNullOrEmpty(dto.id.ToString()))
             {
                 dto.id = new Guid();
+                dto.status = 0;
                 int rows = await db.Insertable(dto).IgnoreColumns(new string[] { }).ExecuteCommandAsync();
 
                 if (rows == 1)
@@ -30,7 +31,7 @@ namespace RoadFlow.Data${data_namespace}
             }
             else
             {
-                int rows = await db.Updateable(dto).IgnoreColumns(new string[] { "ID", "createdate", "createuserid", "createusername" }).ExecuteCommandAsync();
+                int rows = await db.Updateable(dto).IgnoreColumns(new string[] { "createdate", "createuserid", "createusername" }).ExecuteCommandAsync();
 
                 if (rows == 1)
                 {

@@ -59,8 +59,21 @@
                     <div v-if="item.type == 'status'">
                         {{ FStatus[scope.row[item.prop]] }}
                     </div>
-                    <div v-else-if="item.type == 'repository'">
-                        {{ Repository[scope.row[item.prop]] }}
+                    <div v-else-if="item.type == 'date'">
+                        {{
+                            roadui.dateFormat(
+                                scope.row[item.prop],
+                                "yyyy-MM-dd"
+                            )
+                        }}
+                    </div>
+                    <div v-else-if="item.type == 'datetime'">
+                        {{
+                            roadui.dateFormat(
+                                scope.row[item.prop],
+                                "yyyy-MM-dd HH:mm:ss"
+                            )
+                        }}
                     </div>
                     <span v-else>{{ scope.row[item.prop] }}</span>
                 </template>
@@ -89,6 +102,12 @@
 <!-- script part-->
 <script>
 import Vue from "vue";
+const FStatus = {
+    0: "可编辑",
+    1: "审批中",
+    2: "审批完成",
+    3: "取消提交",
+}
 export default {
     props: {
         query: { type: String, default: "" },
@@ -206,7 +225,7 @@ export default {
                                     });
                                     return;
                                 }
-                                if (that.selectRow.Status != "0") {
+                                if (that.selectRow.status != "0") {
                                     this.$message({
                                         message: "只有编辑状态允许编辑！",
                                         type: "warning",
@@ -258,7 +277,7 @@ export default {
                                     });
                                     return;
                                 }
-                                if (that.selectRow.Status != "0") {
+                                if (that.selectRow.status != "0") {
                                     this.$message({
                                         message: "只有编辑状态允许删除！",
                                         type: "warning",
@@ -273,7 +292,7 @@ export default {
                                     .post(
                                         "/MaterialCost/api/${api_root}/delete",
                                         this.qs.stringify({
-                                            djbh: that.selectKey,
+                                            id: that.selectKey,
                                         })
                                     )
                                     .then((data) => {
@@ -287,7 +306,7 @@ export default {
                                     });
                             },
                             <#if has_submit>
-                            submit() {
+                            submit(flowid) {
                                 if (!that.selectKey) {
                                     this.$message({
                                         message: "请先选择一条数据！",
@@ -295,14 +314,13 @@ export default {
                                     });
                                     return;
                                 }
-                                if (that.selectRow.Status != "0") {
+                                if (that.selectRow.status != "0") {
                                     this.$message({
                                         message: "只有编辑状态允许提交流程！",
                                         type: "warning",
                                     });
                                     return;
                                 }
-                                let flowid = "";
                                 let json = {
                                     id: "flowtask_" + that.selectKey,
                                     title: "流程提交",
