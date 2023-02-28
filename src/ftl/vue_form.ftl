@@ -74,6 +74,7 @@ export default {
         return {
             btnspstatus: 0,
             btnaddstatus: 0,
+            saveDisabled: false,
 
             orgname: decodeURI(this.roadui.query("orgname", this.query)),
             orgid: this.roadui.query("orgid", this.query),
@@ -109,9 +110,35 @@ export default {
         }
 
         this.load();
+
+        this.load_project_info();
+        this.init();
     },
     methods: {
         init() {
+            this.$set(this.form, "createusername", this.roadui.getUserName());
+            this.$set(this.form, "createuserid", this.roadui.getUserId());
+            this.$set(this.form, "org_id", this.orgid);
+            this.$set(
+                this.form,
+                "createdate",
+                this.roadui.dateFormat(new Date(), "yyyy-MM-dd")
+            );
+
+            this.ajax.get("/Users/GetLoginUserInfo").then((data) => {
+                console.log(data.dept.dept_name);
+                console.log(data.dept.dept_id);
+            });
+        },
+        load_project_info() {
+            this.ajax
+                .get(
+                    "/baseproject/get" +
+                        this.roadui.queryMaker({ company_id: this.orgid })
+                )
+                .then((data) => {
+                    console.log(data);
+                });
         },
         load() {
             if (this.id) {
@@ -132,12 +159,11 @@ export default {
         },
         // 提交数据
         save() {
-            // console.log(this.$refs.tableeditsued.tableData);
             this.$refs.mainForm.validate((valid) => {
                 if (valid) {
                     this.saveDisabled = true;
-                    // this.form.createusername = this.roadui.getUserName();
-                    // this.form.createuserid = this.roadui.getUserId();
+                    this.form.createusername = this.roadui.getUserName();
+                    this.form.createuserid = this.roadui.getUserId();
 
                     console.log(this.tableData);
                     console.log(this.form);

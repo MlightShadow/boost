@@ -5,6 +5,26 @@
         <!--search-->
         <div class="search-area" style="padding:15px 11px;">
             <el-row class="search-row">
+                <el-col :span="8">
+                    <span>开始时间：</span>
+                    <el-date-picker
+                        v-model="querydata.begin_date"
+                        type="date"
+                        format="yyyy-MM-dd"
+                        placeholder="创建时间"
+                    >
+                    </el-date-picker>
+                </el-col>
+                <el-col :span="8">
+                    <span>结束时间：</span>
+                    <el-date-picker
+                        v-model="querydata.end_date"
+                        type="date"
+                        format="yyyy-MM-dd"
+                        placeholder="创建时间"
+                    >
+                    </el-date-picker>
+                </el-col>
                 <#list record as r >
                 <#list search_column as sc>
                 <#if r.columnname == sc>
@@ -114,6 +134,7 @@ export default {
     },
     data() {
         return {
+            FStatus,
             //prama && system
             toolbar: "",
             formComponentId: "roadflow_programe_" + this.roadui.newGuid(false), //表单注册组件id
@@ -360,6 +381,8 @@ export default {
             this.querydata.size = this.size;
             this.querydata.number = this.number;
             this.querydata.order = this.order;
+            this.querydata.orgid = this.orgid;
+
             this.loading = true;
             //列表
             this.ajax

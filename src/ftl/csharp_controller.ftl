@@ -32,18 +32,20 @@ namespace RoadFlow.${project_name}.Controllers${controller_namespace}
             {
                 int number = Request.Querys("number").ToInt();
                 int size = Request.Querys("size").ToInt();
-                string project_id = Request.Querys("project_id");
-                string order = Request.Querys("order");
+                string org_id = Request.Querys("orgid");
+                string begin_date = Request.Querys("begin_date");
+                string end_date = Request.Querys("end_date");
                 string createusername = Request.Querys("createusername");
+                string order = Request.Querys("order");
 
                 if (order.IsNullOrWhiteSpace())
                 {
                     order = "createdate desc";
                 }
 
-                string sql_where = "(project_id = @project_id or @project_id = '') and createusername like '%' + @createusername + '%'";
+                string sql_where = "(org_id = @org_id or @org_id = '') and createusername like '%' + @createusername + '%' and (createdate > @begin_date or @begin_date = '') and (createdate < @end_date or @end_date = '')";
 
-                Model.ResultModel.PageResult<Model${model_namespace}.${model_name}> list = await business.PageListAsync<Model${model_namespace}.${model_name}>(number, size, sql_where, new { project_id, createusername }, order);
+                Model.ResultModel.PageResult<Model${model_namespace}.${model_name}> list = await business.PageListAsync<Model${model_namespace}.${model_name}>(number, size, sql_where, new { org_id, createusername, begin_date, end_date }, order);
 
                 return RoadFlowCommon.Tools.GetReturnJsonString(true, msg: "查询完成", jObject: JObject.FromObject(list));
             }
