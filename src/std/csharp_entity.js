@@ -20,8 +20,9 @@ function generate_entity(generate_conf) {
             for (let r of res.recordset) {
                 tablename = r["tablename"];
                 switch (r["datatype"]) {
-                    case "nvarchar":
                     case "varchar":
+                    case "nvarchar":
+                    case "text":
                         r.datatype = "System.String";
                         break;
                     case "decimal":
@@ -42,7 +43,6 @@ function generate_entity(generate_conf) {
                         break;
                 }
                 r.primarykey = r.primarykey === '0' ? 'false' : 'true';
-
             }
             console.log(res.recordset);
 

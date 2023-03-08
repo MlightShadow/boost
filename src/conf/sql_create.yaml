@@ -1,0 +1,14 @@
+db_name: RoadFlow
+dbo_name: dbo
+table_name_en: TestCreateTableSql
+table_name_cn: 创建表测试
+column:
+    [
+        { name_cn: "id", name_en: "id", type: "uniqueidentifier", is_pk: true },
+        { name_cn: "创建用户名" },
+        { name_cn: "创建用户id" },
+        { name_cn: "创建时间", name_en: "createuserdate", type: "datetime" },
+        { name_cn: "单据状态", type: "int" },
+    ]
+
+output: ./../../output/sql/
