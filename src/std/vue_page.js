@@ -1,6 +1,6 @@
 const template = require("../lib/template");
 const { get_connect } = require("../lib/conn_sql");
-const { write_file } = require("../lib/txt_reader");
+const { write_file } = require("../lib/file_io");
 
 function generate_vue(generate_conf) {
     // custom_columns

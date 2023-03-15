@@ -1,6 +1,6 @@
 const template = require("./../lib/template");
 const { get_connect } = require("../lib/conn_sql");
-const { write_file } = require("../lib/txt_reader");
+const { write_file } = require("../lib/file_io");
 
 function generate_entity(generate_conf) {
 

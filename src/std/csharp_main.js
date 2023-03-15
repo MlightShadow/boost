@@ -1,5 +1,5 @@
 const template = require("../lib/template");
-const { write_file } = require("../lib/txt_reader");
+const { write_file } = require("../lib/file_io");
 
 
 

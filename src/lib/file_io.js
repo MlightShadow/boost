@@ -3,7 +3,7 @@ const path = require("path");
 const constant = require("./constant");
 function get_lines(file_path, encode = "utf-8") {
     return fs
-        .readFileSync(path.join(__dirname, file_path), encode)
+        .readFileSync(file_path, encode)
         .split(constant.RCLF);
 }
 
@@ -19,7 +19,7 @@ function mkdirsSync(dirname) {
 }
 
 function write_file(file_path, str) {
-    let p = path.join(__dirname, file_path);
+    let p =  file_path;
     mkdirsSync(path.dirname(p));
     fs.writeFileSync(p, str, { 'flag': 'w' });
 }
