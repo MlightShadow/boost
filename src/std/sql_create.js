@@ -1,6 +1,7 @@
 const template = require("../lib/template");
 const { write_file } = require("../lib/file_io");
 const { full_letter } = require("../lib/latin_convert");
+const path = require("path");
 
 function generate_sql_create(generate_conf) {
 
@@ -19,7 +20,8 @@ function generate_sql_create(generate_conf) {
 
     template.render("sql_create", generate_conf, (res) => {
         console.log(res);
-        write_file(output + generate_conf.table_name_en + ".sql", res);
+        console.log(path.resolve('./') + output + generate_conf.table_name_en + ".sql");
+        write_file(path.resolve('./') + output + generate_conf.table_name_en + ".sql", res);
     });
 }
 

@@ -1,6 +1,7 @@
 const template = require("../lib/template");
 const { get_connect } = require("../lib/conn_sql");
 const { write_file } = require("../lib/file_io");
+const path = require("path");
 
 function generate_vue(generate_conf) {
     // custom_columns
@@ -40,19 +41,19 @@ function generate_vue(generate_conf) {
 
             template.render("vue_index", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
                 console.log(res);
-                write_file(VUE_OUTPUT + "index.vue", res);
+                write_file(path.resolve("./") + VUE_OUTPUT + "index.vue", res);
             });
 
             // form
             template.render("vue_form", { page_root, has_print, has_submit, search_column, api_root, tablename: tablename, classname: tablename, record: res.recordset }, (res) => {
                 console.log(res);
-                write_file(VUE_OUTPUT + "form.vue", res);
+                write_file(path.resolve("./") + VUE_OUTPUT + "form.vue", res);
             });
 
             // tree
             template.render("vue_tree", {}, (res) => {
                 console.log(res);
-                write_file(VUE_OUTPUT + "tree.vue", res);
+                write_file(path.resolve("./") + VUE_OUTPUT + "tree.vue", res);
             });
         });
     });

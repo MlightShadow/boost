@@ -1,6 +1,7 @@
 const template = require("./../lib/template");
 const { get_connect } = require("../lib/conn_sql");
 const { write_file } = require("../lib/file_io");
+const path = require("path");
 
 function generate_entity(generate_conf) {
 
@@ -48,7 +49,7 @@ function generate_entity(generate_conf) {
 
             template.render("csharp_dto", { tablename, class_name, entity_namespace, record: res.recordset }, (res) => {
                 console.log(res);
-                write_file(ENTITY_OUTPUT + class_name + ".cs", res);
+                write_file(path.resolve("./") + ENTITY_OUTPUT + class_name + ".cs", res);
             });
         });
     });
